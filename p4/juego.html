@@ -1,0 +1,74 @@
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Html5 canvas 0</title>
+</head>
+
+<body>
+    <canvas id="sketchpad" width="300" height="300" style="background-color: green;"></canvas>
+    <p>
+	<button  id="dibujar">DIBUJAR</button>
+      
+	<button id="limpiar"> LIMPIAR</button>
+
+    </p>
+    <script type="text/javascript" charset="utf-8">
+   	 var tam;
+    	var a;
+    	var b;
+    	var c;
+    	var d;
+   	 function getMousePos(canvas, evt) {
+   			 var rect = canvas.getBoundingClientRect();
+   			 return {
+   				 x: evt.clientX - rect.left,
+   				 y: evt.clientY - rect.top
+   			 };
+   		 }
+       	 
+    	function dibuja(context) {
+   		 context.fillStyle = "rgb(0,0,255)";
+      		 tam=Math.random()*100;
+        	a=(Math.floor(Math.random()*300));
+        	b=(Math.floor(Math.random()*300));
+        	c=tam
+        	d=tam
+   		 context.fillRect(a,b,c,d);
+       	 
+   	 }
+   	 
+   	 function limpiar(context) {
+   		 canvas = document.querySelector('#sketchpad');
+   		 context = canvas.getContext("2d");
+   		 context.clearRect(0, 0, canvas.width, canvas.height);
+   	 }
+
+   	 function DibujaEnRaton(context, coors) {
+   		 context.fillStyle = "rgb(255,0,0)";
+   		 context.fillRect(a, b, c, d);
+
+   			 
+   		 }
+   	 function ready() {
+   	 
+   		 var canvas = document.querySelector("#sketchpad");
+   		 context = canvas.getContext('2d');
+   		 canvas.addEventListener("click",function(evt){
+   			 coors=getMousePos(canvas, evt);
+   			 DibujaEnRaton(context, coors) ;
+   		 })
+   		 
+   	 document.querySelector("#dibujar").addEventListener("click", function () {
+   			 dibuja(context);
+   		 });    document.querySelector("#limpiar").addEventListener("click", function () {
+   			 limpiar(context);
+   		 });
+   		 
+   	 }
+   	 ready();
+    </script>
+</body>
+
+</html>
