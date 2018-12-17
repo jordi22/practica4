@@ -1,0 +1,106 @@
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Html5 canvas 0</title>
+</head>
+
+<body>
+	<canvas id="sketchpad" width="300" height="300" style="background-color: green;"></canvas>
+	<p>
+    <button id="limpiar"> LIMPIAR</button>
+	</p>
+    
+	<script type="text/javascript" charset="utf-8">
+		var tam;
+        var a;
+        var b;
+        var c;
+        var d;
+        maxScore=0;
+        score=0;
+        entrado=false;
+        var canvas = document.querySelector("#sketchpad");
+        var context = canvas.getContext('2d');
+        
+        function drawScore() {
+    context.font = "16px Arial";
+    context.fillStyle = "#0095DD";
+    context.fillText("Score: "+score, 8, 20);
+    context.fillText("Best Score: "+maxScore, 150, 20);
+
+
+}
+
+		function getMousePos(canvas, evt) {
+				var rect = canvas.getBoundingClientRect();
+				return {
+					x: evt.clientX - rect.left,
+					y: evt.clientY - rect.top
+				};
+			}
+            
+        function dibuja() {
+        if (!entrado) {
+        
+			context.fillStyle = "rgb(0,0,255)";
+           	tam=Math.random()*100;
+            a=(Math.floor(Math.random()*300));
+            b=(Math.floor(Math.random()*300));
+            c=tam
+            d=tam
+			context.fillRect(a,b,c, d);
+            score-=100;
+        } else {
+        }
+		}
+		
+		function limpiar(context) {
+			canvas = document.querySelector('#sketchpad');
+			context = canvas.getContext("2d");
+			context.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		function DibujaEnRaton(context, coors) {
+        	if (coors.x>=a && coors.x <=a+c && coors.y>=b && coors.y <=b+c){
+            
+			context.fillStyle = "rgb(255,0,0)";
+			context.fillRect(a, b, c, d);
+			entrado=true;
+            if (score>maxScore || maxScore==0) {
+                	maxScore = score;
+                }
+                score = 0;
+            drawScore();
+
+
+            
+			}
+			}
+		function ready() {
+        
+			
+			
+			canvas.addEventListener("click",function(evt){
+				coors=getMousePos(canvas, evt);
+				DibujaEnRaton(context, coors) ;
+			})
+			
+document.querySelector("#limpiar").addEventListener("click", function () {
+				entrado=false;
+				limpiar(context);
+                score = 0;
+                drawScore();
+
+
+			});
+			
+		}
+        drawScore();
+        setInterval(dibuja,550);
+		ready();
+	</script>
+</body>
+
+</html>
